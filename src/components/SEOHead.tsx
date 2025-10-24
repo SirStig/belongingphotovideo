@@ -1,10 +1,11 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCMS } from '../contexts/CMSContext';
 
 const SEOHead: React.FC = () => {
   const location = useLocation();
-  const { cmsContent } = useCMS();
+  // useCMS() kept in case SEO needs CMS-driven values in the future
+  useCMS();
 
   const getPageSEO = () => {
     const baseUrl = 'https://belongingphotovideo.com';
@@ -50,7 +51,7 @@ const SEOHead: React.FC = () => {
 
   const seo = getPageSEO();
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Update document title
     document.title = seo.title;
 

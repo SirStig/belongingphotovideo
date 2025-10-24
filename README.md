@@ -75,6 +75,38 @@ npm run dev
 npm run build
 ```
 
+## Demo mode in builds
+
+You can enable demo mode at build time so the production bundle runs with the sample/demo content.
+
+- Locally (PowerShell):
+
+```powershell
+$env:VITE_DEMO = 'true'; npm run build
+```
+
+- In CI (the included GitHub Actions workflow) the demo flag is already set so the deployed site will run in demo mode.
+
+When `VITE_DEMO` is set to `true` the app will initialize the CMS in demo mode. If you set it to `false`, production/localStorage-backed mode will be used instead.
+
+## Deploying to GitHub Pages
+
+This repository includes a GitHub Actions workflow at `.github/workflows/gh-pages.yml` that will build the site and deploy the `dist` output to GitHub Pages when you push to `main`.
+
+- What the workflow does:
+	- Installs dependencies
+	- Builds the site with `GH_PAGES=true` and `VITE_DEMO=true` (so the built site uses the repo base and demo mode)
+	- Uploads the `dist` artifact and deploys it to GitHub Pages
+
+- To deploy manually (locally), build with the GH_PAGES env and then push the `dist` contents to your GitHub Pages branch (or let the workflow do it):
+
+```powershell
+$env:GH_PAGES = 'true'; $env:VITE_DEMO = 'true'; npm run build
+# then upload the contents of ./dist to your gh-pages branch (or rely on the workflow)
+```
+
+The Vite config reads `process.env.GH_PAGES` and sets the `base` to `/belongingphotovideo/` when true; that ensures assets and routing work correctly on GitHub Pages.
+
 ## Project Structure
 
 ```

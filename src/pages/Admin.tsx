@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Settings, Image, Users, BarChart, LogOut, Eye, EyeOff } from 'lucide-react';
+import { Settings, Image, BarChart, LogOut, Eye, EyeOff } from 'lucide-react';
 import { useCMS } from '../contexts/CMSContext';
 
 const Admin: React.FC = () => {
@@ -67,7 +67,7 @@ const Admin: React.FC = () => {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => setActiveTab(tab.id as 'dashboard' | 'content' | 'albums' | 'settings')}
                   className={`
                     w-full flex items-center px-4 py-3 text-left rounded-lg transition-colors
                     ${activeTab === tab.id

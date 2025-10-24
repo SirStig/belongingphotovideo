@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { appMode } = useCMS();
+  useCMS();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,17 +27,18 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
 
   const headerClasses = `
     fixed top-0 left-0 right-0 z-50 transition-all duration-300
-    ${transparent && !isScrolled 
-      ? 'bg-transparent' 
-      : 'bg-white/95 backdrop-blur-sm shadow-sm'
+    ${transparent && !isScrolled
+      ? 'bg-transparent'
+      : // if on the About or Work page, match the page cream so header blends seamlessly; no shadow or border
+        (location.pathname.startsWith('/work') || location.pathname.startsWith('/about') ? 'bg-cream-100' : 'bg-cream-50')
     }
   `;
 
   const textClasses = `
     transition-colors duration-300
-    ${transparent && !isScrolled 
-      ? 'text-white' 
-      : 'text-neutral-900'
+    ${transparent && !isScrolled
+      ? 'text-cream-50'
+      : 'text-charcoal-900'
     }
   `;
 
@@ -61,14 +62,19 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className={`text-xl font-bold ${textClasses}`}>
+            <img 
+              src="/assets/logo.png" 
+              alt="Belonging Photo + Video" 
+              className="h-12 w-auto"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                if (fallback) fallback.style.display = 'block';
+              }}
+            />
+            <span className={`hidden text-xl font-bold heading-serif ${textClasses}`}>
               Belonging Photo + Video
             </span>
-            {appMode.isDemo && (
-              <span className="ml-2 px-2 py-1 text-xs bg-yellow-400 text-black rounded">
-                DEMO
-              </span>
-            )}
           </Link>
 
           {/* Desktop Navigation */}
@@ -90,7 +96,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 {isActiveLink(item.href) && (
                   <motion.div
                     className={`absolute -bottom-1 left-0 right-0 h-0.5 ${
-                      transparent && !isScrolled ? 'bg-white' : 'bg-neutral-900'
+                      transparent && !isScrolled ? 'bg-cream-50' : 'bg-accent-500'
                     }`}
                     layoutId="activeLink"
                     initial={false}
@@ -119,7 +125,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-t border-neutral-200"
+            className={`md:hidden ${location.pathname.startsWith('/work') || location.pathname.startsWith('/about') ? 'bg-cream-100' : 'bg-cream-50'}`}
           >
             <div className="px-4 py-4 space-y-4">
               {navigation.map((item) => (
@@ -127,9 +133,9 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                   key={item.name}
                   to={item.href}
                   className={`
-                    block font-medium text-neutral-900 transition-colors duration-200
+                    block font-medium text-charcoal-900 transition-colors duration-200
                     ${isActiveLink(item.href) 
-                      ? 'opacity-100' 
+                      ? 'opacity-100 text-accent-600' 
                       : 'opacity-70 hover:opacity-100'
                     }
                   `}

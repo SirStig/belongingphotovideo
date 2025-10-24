@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Heart, Camera, Users } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useCMS } from '../contexts/CMSContext';
+import AlbumCard from '../components/AlbumCard';
 
 const Home: React.FC = () => {
   const { cmsContent, albums } = useCMS();
-  const featuredAlbums = albums.filter(album => album.featured).slice(0, 3);
+  const featuredAlbums = albums.filter(album => album.featured).slice(0, 4);
 
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
-        {/* Background Image/Video */}
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={cmsContent.hero.backgroundImage}
@@ -23,12 +24,12 @@ const Home: React.FC = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+        <div className="relative z-10 text-center text-cream-50 max-w-5xl mx-auto px-4">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight heading-serif"
           >
             {cmsContent.hero.title}
           </motion.h1>
@@ -37,7 +38,7 @@ const Home: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl mb-10 opacity-95 max-w-3xl mx-auto font-light"
           >
             {cmsContent.hero.subtitle}
           </motion.p>
@@ -49,10 +50,10 @@ const Home: React.FC = () => {
           >
             <Link
               to="/work"
-              className="inline-flex items-center bg-white text-neutral-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-neutral-100 transition-colors duration-200 group"
+              className="inline-flex items-center bg-cream-50 text-charcoal-900 px-10 py-5 rounded-full font-semibold text-lg hover:bg-cream-100 transition-all duration-300 shadow-lg hover:shadow-xl group"
             >
               {cmsContent.hero.ctaText}
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-200" size={20} />
+              <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform duration-300" size={22} />
             </Link>
           </motion.div>
         </div>
@@ -61,161 +62,208 @@ const Home: React.FC = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          transition={{ duration: 1, delay: 1.2 }}
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
         >
-          <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+          <div className="w-6 h-11 border-2 border-cream-50/60 rounded-full flex justify-center">
             <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-3 bg-white rounded-full mt-2"
+              animate={{ y: [0, 14, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1.5 h-3 bg-cream-50/80 rounded-full mt-2"
             />
           </div>
         </motion.div>
       </section>
 
-      {/* About Preview Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* About Preview Section - Minimal with Image */}
+      <section className="py-0 bg-cream-100">
+        {/* Blended hero-to-about gradient */}
+        <div className="h-20 bg-gradient-to-b from-charcoal-900/20 to-cream-100" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Text Content */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl font-bold mb-6 text-neutral-900">
-                {cmsContent.about.title}
-              </h2>
-              <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
-                {cmsContent.about.description}
-              </p>
-              
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="flex items-center">
-                  <Heart className="text-primary-500 mr-3" size={24} />
-                  <span className="font-medium">Authentic Stories</span>
-                </div>
-                <div className="flex items-center">
-                  <Camera className="text-primary-500 mr-3" size={24} />
-                  <span className="font-medium">Professional Quality</span>
-                </div>
-                <div className="flex items-center">
-                  <Users className="text-primary-500 mr-3" size={24} />
-                  <span className="font-medium">Diverse Perspectives</span>
-                </div>
-                <div className="flex items-center">
-                  <ArrowRight className="text-primary-500 mr-3" size={24} />
-                  <span className="font-medium">Creative Vision</span>
-                </div>
-              </div>
-              
-              <Link
-                to="/about"
-                className="btn-secondary inline-flex items-center"
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="text-4xl md:text-5xl font-bold mb-6 text-charcoal-900 heading-serif"
               >
-                Learn More About Us
-                <ArrowRight className="ml-2" size={16} />
-              </Link>
+                Who We Are
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="text-lg text-charcoal-700 mb-8 leading-relaxed"
+              >
+                {cmsContent.about.description}
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  to="/about"
+                  className="inline-flex items-center btn-secondary"
+                >
+                  Learn Our Full Story
+                  <ArrowRight className="ml-2" size={18} />
+                </Link>
+              </motion.div>
             </motion.div>
-            
+
+            {/* Image */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative"
             >
               <img
-                src={cmsContent.about.image}
-                alt="About Belonging Photo + Video"
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
+                src="https://static.wixstatic.com/media/cec453_4f647a43bbcb4e58a90ef6b8499bf8ba~mv2.jpg/v1/crop/x_0,y_38,w_2316,h_2579/fill/w_842,h_938,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2135C048-A781-4412-8FCD-F78D9ABDC2EA-3.jpg"
+                alt="Belonging Photo + Video"
+                className="w-full h-auto object-cover"
               />
-              <div className="absolute -bottom-6 -right-6 bg-primary-500 text-white p-4 rounded-lg shadow-lg">
-                <p className="font-semibold">Butho & Jenn</p>
-                <p className="text-sm opacity-90">Creative Partners</p>
-              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Featured Work Section */}
-      {featuredAlbums.length > 0 && (
-        <section className="py-20 bg-neutral-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
+      <section className="py-24 bg-cream-50">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-5xl md:text-6xl font-bold mb-6 text-charcoal-900 heading-serif"
             >
-              <h2 className="text-4xl font-bold mb-4 text-neutral-900">
-                Featured Work
-              </h2>
-              <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-                Explore some of our favorite projects showcasing authentic branding and storytelling
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredAlbums.map((album, index) => (
-                <motion.div
-                  key={album.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Link
-                    to={`/work/${album.id}`}
-                    className="group block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
-                  >
-                    <div className="aspect-w-4 aspect-h-3 overflow-hidden">
-                      <img
-                        src={album.coverImage}
-                        alt={album.title}
-                        className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2 text-neutral-900 group-hover:text-primary-600 transition-colors">
-                        {album.title}
-                      </h3>
-                      <p className="text-neutral-600 mb-4">
-                        {album.description}
-                      </p>
-                      <span className="text-sm font-medium text-primary-600 uppercase tracking-wide">
-                        {album.category}
-                      </span>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              Recent Work
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="text-center mt-12"
+              className="text-xl text-charcoal-600 max-w-3xl mx-auto"
             >
-              <Link
-                to="/work"
-                className="btn-primary inline-flex items-center"
-              >
-                View All Work
-                <ArrowRight className="ml-2" size={16} />
-              </Link>
-            </motion.div>
+              Explore our latest brand photography projects showcasing authentic storytelling and creative vision
+            </motion.p>
+          </motion.div>
+
+          {/* Featured Albums Grid - Exact match to Work page */}
+          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-2 mb-16">
+            {featuredAlbums.map((album, index) => (
+              <AlbumCard key={album.id} album={album} index={index} />
+            ))}
           </div>
-        </section>
-      )}
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <Link
+              to="/work"
+              className="inline-flex items-center btn-primary"
+            >
+              View All Work
+              <ArrowRight className="ml-2" size={18} />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Instagram Section */}
+      <section className="py-24 bg-cream-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-5xl md:text-6xl font-bold mb-6 text-charcoal-900 heading-serif"
+            >
+              Follow Us
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="text-xl text-charcoal-600 max-w-3xl mx-auto mb-8"
+            >
+              Stay connected for daily inspiration and behind-the-scenes content
+            </motion.p>
+            <motion.a
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              href="https://www.instagram.com/belongingphotovideo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center btn-secondary text-charcoal-900 border-charcoal-900 hover:bg-charcoal-900 hover:text-cream-50"
+            >
+              Visit @belongingphotovideo
+              <ArrowRight className="ml-2" size={18} />
+            </motion.a>
+          </motion.div>
+
+          {/* Instagram Feed */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[...Array(4)].map((_, index) => (
+              <motion.a
+                key={index}
+                href="https://www.instagram.com/belongingphotovideo"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="aspect-square bg-charcoal-900/5 hover:bg-charcoal-900/10 transition-all duration-300 rounded-sm flex items-center justify-center group"
+              >
+                <div className="text-center">
+                  <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">📸</div>
+                  <p className="text-sm text-charcoal-600">See on Instagram</p>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-neutral-900 text-white">
+      <section className="py-24 bg-charcoal-900 text-cream-50">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -223,18 +271,18 @@ const Home: React.FC = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold mb-6">
-              Ready to Tell Your Story?
+            <h2 className="text-5xl md:text-6xl font-bold mb-8 heading-serif">
+              Ready to Tell Your Brand Story?
             </h2>
-            <p className="text-xl mb-8 opacity-90">
-              Let's create something beautiful together. We'd love to hear about your vision and bring it to life.
+            <p className="text-xl md:text-2xl mb-10 opacity-90 font-light leading-relaxed">
+              Let's create something beautiful together. We'd love to hear about your vision and bring it to life through authentic visual storytelling.
             </p>
             <Link
               to="/contact"
-              className="btn-primary bg-white text-neutral-900 hover:bg-neutral-100 inline-flex items-center"
+              className="inline-flex items-center bg-cream-50 text-charcoal-900 px-10 py-5 rounded-full font-semibold text-lg hover:bg-cream-100 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Get In Touch
-              <ArrowRight className="ml-2" size={16} />
+              <ArrowRight className="ml-3" size={20} />
             </Link>
           </motion.div>
         </div>

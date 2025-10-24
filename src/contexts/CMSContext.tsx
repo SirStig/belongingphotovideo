@@ -42,8 +42,15 @@ export const CMSProvider: React.FC<CMSProviderProps> = ({ children }) => {
   const [albums, setAlbums] = useState<Album[]>(demoAlbums);
   const [weddingAlbums, setWeddingAlbums] = useState<Album[]>(demoWeddingAlbums);
   const [cmsContent, setCMSContent] = useState<CMSContent>(demoCMSContent);
+
+  // Respect Vite env flag VITE_DEMO when present. If VITE_DEMO is set to
+  // 'true' or 'false' it will be used; otherwise we fall back to the
+  // previous default (demo enabled) so current behaviour is preserved.
+  const _rawDemo = import.meta.env.VITE_DEMO;
+  const _isDemoEnv: boolean | undefined = _rawDemo === 'true' ? true : _rawDemo === 'false' ? false : undefined;
+
   const [appMode, setAppMode] = useState<AppMode>({
-    isDemo: true,
+    isDemo: _isDemoEnv ?? true,
     isAuthenticated: false,
   });
 

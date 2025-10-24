@@ -1,4 +1,4 @@
-import React from 'react';
+// React import is not required with the automatic JSX runtime
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CMSProvider } from './contexts/CMSContext';
 import Layout from './components/Layout';
