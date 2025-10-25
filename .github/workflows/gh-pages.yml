@@ -9,7 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write  # Required for peaceiris/actions-gh-pages to push to gh-pages branch
       pages: write
       id-token: write
 
