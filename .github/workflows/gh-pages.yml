@@ -34,8 +34,8 @@ jobs:
           VITE_DEMO: 'true'
 
       - name: Upload artifact for pages
-        # Use v2 which depends on non-deprecated upload-artifact versions
-        uses: actions/upload-pages-artifact@v2
+        # Use latest Pages upload action which depends on non-deprecated artifact actions
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
@@ -48,5 +48,5 @@ jobs:
 
     steps:
       - name: Deploy to GitHub Pages
-        # deploy-pages@v2 is the newer release that pairs with upload-pages-artifact@v2
-        uses: actions/deploy-pages@v2
+        # Use the current deploy-pages major which works with upload-pages-artifact@v3
+        uses: actions/deploy-pages@v3
