@@ -33,11 +33,10 @@ jobs:
           GH_PAGES: 'true'
           VITE_DEMO: 'true'
 
-      - name: Upload artifact for pages
-        # Use latest Pages upload action which depends on non-deprecated artifact actions
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to gh-pages branch (push built files)
+        # Use a git-based publisher to push ./dist to the gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: ./dist
-      - name: Deploy to GitHub Pages
-        # Run deploy in the same job to ensure the uploaded artifact is immediately available
-        uses: actions/deploy-pages@v3
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
