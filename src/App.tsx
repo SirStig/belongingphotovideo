@@ -14,7 +14,7 @@ import NotFound from './pages/NotFound';
 function App() {
   return (
     <CMSProvider>
-      <Router>
+      <Router basename={import.meta.env.BASE_URL}>
         <Layout>
           <Routes>
             {/* Public routes */}
