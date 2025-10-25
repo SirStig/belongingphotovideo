@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
           <div className="flex flex-col">
             <div className="flex items-center space-x-4 mb-4">
               <img
-                src="/assets/logo.png"
+                src={`${import.meta.env.BASE_URL}assets/logo.png`}
                 alt="Belonging Photo + Video"
                 className="h-12 w-auto"
                 onError={(e) => {

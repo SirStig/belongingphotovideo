@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src="/assets/logo.png" 
+              src={`${import.meta.env.BASE_URL}assets/logo.png`}
               alt="Belonging Photo + Video" 
               className="h-12 w-auto"
               onError={(e) => {

@@ -129,12 +129,12 @@ export const demoCMSContent: CMSContent = {
     title: 'Authentic Stories Through Photography',
     subtitle: 'Visual storytelling for brands that value genuine connection and diverse perspectives',
     ctaText: 'Explore Our Work',
-    backgroundImage: '/assets/dummy/hero.avif',
+    backgroundImage: `${import.meta.env.BASE_URL}assets/dummy/hero.avif`,
   },
   about: {
     title: 'We Are Butho & Jenn',
     description: 'A husband and wife creative team bringing unique perspectives to brand photography. As an interracial couple, we understand the power of authentic representation and create visual narratives that celebrate diversity, individuality, and genuine human connection. We specialize in brand photography and videography that tells your story with intention and artistry.',
-    image: '/assets/dummy/client1.avif',
+    image: `${import.meta.env.BASE_URL}assets/dummy/client1.avif`,
     highlights: [
       'Authentic brand storytelling',
       'Diverse perspective & representation',
